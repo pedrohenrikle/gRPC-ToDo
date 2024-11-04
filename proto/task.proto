@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option go_package = "/pb";
+
+service Task_gRPC {
+  rpc CreateTask (CreateTaskRequest) returns (Task) {}
+  rpc GetTasks (GetTaskRequest) returns (GetTasksResponse) {}
+  rpc UpdateTask (UpdateTaskRequest) returns (UpdateTaskResponse) {}
+  rpc DeleteTask (DeleteTaskRequest) returns (DeleteTaskResponse) {}
+}
+
+message Task {
+  string id = 1;
+  string owner_id = 2;
+  string title = 3;
+  string description = 4;
+  bool is_completed = 5;
+}
+
+// Requisição para criação de tarefa
+message CreateTaskRequest {
+  string owner_id = 1;
+  string title = 2;
+  string description = 3;
+}
+
+// Requisição para obtenção de tarefas
+message GetTaskRequest {
+  string owner_id = 1;
+}
+
+// Resposta para obtenção de tarefas
+message GetTasksResponse {
+  repeated Task tasks = 1;
+}
+
+// Requisição para atualização de tarefa
+message UpdateTaskRequest {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  bool is_completed = 4;
+}
+
+// Resposta para atualização de tarefa
+message UpdateTaskResponse {
+  Task task = 1;
+}
+
+// Requisição para exclusão de tarefa
+message DeleteTaskRequest {
+  string id = 1;
+}
+
+// Resposta para exclusão de tarefa
+message DeleteTaskResponse {
+  string message = 1;
+}
